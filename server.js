@@ -6,12 +6,30 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://techbet-beta.vercel.app",
+  "https://techbet-kixgf4g3h-faouzia.vercel.app",
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://techbet-beta.vercel.app",
-    ],
+    origin: function (origin, callback) {
+      // Autorise les requêtes sans Origin
+      // (ex: certains outils serveur)
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      console.log("❌ Origin refusée :", origin);
+      return callback(new Error("Origin not allowed by CORS"));
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
