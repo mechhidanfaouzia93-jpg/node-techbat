@@ -11,6 +11,12 @@ const allowedOrigins = [
   "https://techbet-beta.vercel.app",
   "https://techbet-kixgf4g3h-faouzia.vercel.app",
 ];
+app.get("/api/cors-test", (req, res) => {
+  res.json({
+    success: true,
+    origin: req.headers.origin || null,
+  });
+});
 
 app.use(
   cors({
@@ -48,6 +54,12 @@ app.get("/api/test", (req, res) => {
   res.json({
     success: true,
     message: "Backend TECHBAT fonctionne !",
+  });
+});
+app.get("/api/cors-test", (req, res) => {
+  res.json({
+    success: true,
+    origin: req.headers.origin || null,
   });
 });
 
