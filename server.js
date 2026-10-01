@@ -147,10 +147,12 @@ app.post("/api/verify-email", (req, res) => {
   });
 });
 
-const PORT = 5000;
+
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Backend lancé sur http://localhost:${PORT}`);
+  console.log(`Backend lancé sur le port ${PORT}`);
 });
 
 
